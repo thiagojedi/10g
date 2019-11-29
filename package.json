@@ -1,0 +1,24 @@
+{
+  "name": "tengrams",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "webpack -w",
+    "build": "NODE_ENV=production webpack"
+  },
+  "dependencies": {
+    "preact": "^10.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-react-jsx": "^7.7.4",
+    "@babel/preset-modules": "^0.1.1",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "babel-loader": "^8.0.6",
+    "prettier": "^1.19.1",
+    "styled-jsx": "^3.2.4",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}

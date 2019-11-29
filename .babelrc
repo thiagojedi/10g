@@ -1,0 +1,20 @@
+{
+  "presets": [
+    [
+      "@babel/typescript",
+      {
+        "jsxPragma": "h"
+      }
+    ],
+    "@babel/preset-modules"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "pragma": "h"
+      }
+    ],
+    "styled-jsx/babel"
+  ]
+}
