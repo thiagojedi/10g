@@ -15,5 +15,8 @@ module.exports = {
   },
   module: {
     rules: [{ test: /\.[tj]sx?$/, loader: "babel-loader" }]
+  },
+  devServer: {
+    publicPath: '/dist/'
   }
 };

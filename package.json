@@ -2,7 +2,7 @@
   "name": "tengrams",
   "version": "0.1.0",
   "scripts": {
-    "dev": "webpack -w",
+    "dev": "webpack-dev-server",
     "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "styled-jsx": "^3.2.4",
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }
