@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+* {
+  font-family: "Open Sans", sans-serif;
+  font-size: 10px;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 1.7rem;
+}
+
+h5,
+.h5 {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
