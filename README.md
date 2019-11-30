@@ -3,7 +3,7 @@
 ![preact](https://img.shields.io/github/package-json/dependency-version/thiagoabreu/10g/preact?style=flat-square&color=673ab8)
 ![typescript](https://img.shields.io/github/package-json/dependency-version/thiagoabreu/10g/dev/typescript?color=007ACC&style=flat-square)
 ![jest](https://img.shields.io/github/package-json/dependency-version/thiagoabreu/10g/dev/jest?style=flat-square&color=C21325)
-![build](https://img.shields.io/github/workflow/status/thiagoabreu/10g/Node CI?style=flat-square)
+![build](https://img.shields.io/github/workflow/status/thiagoabreu/10g/Node%20CI?style=flat-square)
 
 A lightweight version of Telegram, aimed to run on small devices with limited
 hardware like the one with KaiOS.
