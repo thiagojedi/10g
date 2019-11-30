@@ -1,6 +1,6 @@
 {
   "name": "tengrams",
-  "description": "A Hello World app",
+  "description": "A lightweight version of Telegram",
   "launch_path": "/index.html",
   "icons": {
     "16": "/assets/icons/icon16x16.png",
@@ -9,7 +9,7 @@
     "128": "/assets/icons/icon128x128.png"
   },
   "developer": {
-    "name": "Your name",
-    "url": "http://example.com"
+    "name": "Thiago 'Jedi' Abreu",
+    "url": "https://thiagoabreu.github.io"
   }
 }
