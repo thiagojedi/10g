@@ -16,7 +16,13 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
     <div>
       <Header title={headerTitle} />
       <main>{children}</main>
-      {actions && <SoftwareKeys leftKey={"Left key"} centerKey={"Select"} rightKey="Right key" />}
+      {actions && (
+        <SoftwareKeys
+          leftKey={"Left key"}
+          centerKey={"Select"}
+          rightKey="Right key"
+        />
+      )}
 
       <style jsx>{`
         div {
@@ -28,6 +34,7 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
 
         main {
           flex-grow: 1;
+          overflow: hidden;
         }
       `}</style>
     </div>

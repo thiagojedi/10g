@@ -1,12 +1,29 @@
-import { h } from 'preact';
-import { MainLayout } from "../modules/application/main-layout"
+import {h} from "preact";
+import {MainLayout} from "../modules/application/main-layout";
+import {ListItem} from "../lib/components/list-item";
 
 const MainPage = () => {
-    return (
-        <MainLayout headerTitle="Ten Grams" actions>
-            <h1>Hello World!</h1>
-        </MainLayout>
-    )
-}
+  const contactList = [
+    {
+      title: "Mr Anderson",
+      status: "online"
+    },
+    {
+      title: "Morpheus",
+      status: "offline"
+    },
+    {
+      title: "Agent Smith",
+      status: "online"
+    }
+  ];
+  return (
+    <MainLayout headerTitle="Ten Grams" actions>
+      {contactList.map((item, i) => (
+        <ListItem key={i} primaryText={item.title} />
+      ))}
+    </MainLayout>
+  );
+};
 
 export default MainPage;
