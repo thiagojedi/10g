@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=production webpack",
     "test": "jest"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "@babel/preset-typescript": "^7.6.0",
     "@types/jest": "^24.0.23",
     "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.3",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "styled-jsx": "^3.2.4",
