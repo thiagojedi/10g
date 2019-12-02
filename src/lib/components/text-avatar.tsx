@@ -1,8 +1,8 @@
 import {FunctionComponent, h} from "preact";
-import {toInitials} from "../helpers/text";
+import {getInitials} from "../helpers/text";
 
 export const TextAvatar: FunctionComponent = () => {
-    const initials = toInitials("Mr Anderson");
+    const initials = getInitials("Mr Anderson");
     return (
         <div className="textAvatar">
             <span>{initials}</span>

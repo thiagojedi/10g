@@ -1,8 +1,10 @@
-import { toInitials } from "./text";
+import { getInitials } from "./text";
 
-test("toInitials", function() {
-  expect(toInitials()).toBe("?");
-  expect(toInitials("Ana")).toBe("A");
-  expect(toInitials("Mr Smith")).toBe("MS");
-  expect(toInitials("Samuel L Jackson")).toBe("SJ");
+test("getInitials", function() {
+  expect(getInitials()).toBe("?");
+  expect(getInitials("Morpheus")).toBe("M");
+  expect(getInitials("Agent Smith")).toBe("AS");
+  expect(getInitials("Mr Thomas Anderson")).toBe("MA");
+  expect(getInitials("🐇")).toBe("🐇");
+  expect(getInitials("White 🐇")).toBe("W🐇");
 });
