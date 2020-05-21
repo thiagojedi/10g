@@ -5,18 +5,21 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"],
     alias: {
-      'react': 'preact'
-    }
+      react: "preact/compat",
+      react$: "preact/compat",
+      "react-dom": "preact/compat",
+      "react-dom$": "preact/compat",
+    },
   },
   module: {
-    rules: [{ test: /\.[tj]sx?$/, loader: "babel-loader" }]
+    rules: [{ test: /\.[tj]sx?$/, loader: "babel-loader" }],
   },
   devServer: {
-    publicPath: '/dist/'
-  }
+    publicPath: "/dist/",
+  },
 };
