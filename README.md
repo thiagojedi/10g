@@ -8,7 +8,7 @@
 A lightweight version of Telegram, aimed to run on small devices with limited
 hardware like the one with KaiOS.
 
-> **_WARNING_**: THIS IS A PROTOTYPE / PROOF OF CONCEPT. It is now usable. It is
+> **_WARNING_**: THIS IS A PROTOTYPE / PROOF OF CONCEPT. It is not usable. It is
 > not ready. And maybe never will.
 
 ## (Should be) Using:
