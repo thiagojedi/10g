@@ -31,7 +31,6 @@ export const SoftwareKeys: FunctionComponent<SoftwareKeysProps> = ({
           break;
         case "Enter":
           if (onCenterKey) onCenterKey();
-        default:
           break;
       }
     };
