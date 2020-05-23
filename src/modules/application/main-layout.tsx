@@ -13,7 +13,14 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
   children,
 }) => {
   return (
-    <div>
+    <div
+      style={{
+        height: "100vh",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Header title={headerTitle} />
       <main>{children}</main>
       {actions && (
@@ -25,20 +32,6 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
           onRightKey={() => console.log("Right!")}
         />
       )}
-
-      <style jsx>{`
-        div {
-          height: 100vh;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-        }
-
-        main {
-          flex-grow: 1;
-          overflow: hidden;
-        }
-      `}</style>
     </div>
   );
 };

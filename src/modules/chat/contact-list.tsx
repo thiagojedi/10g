@@ -1,4 +1,4 @@
-import { h, FunctionComponent, Fragment } from "preact";
+import { h, FunctionComponent } from "preact";
 import { useState, useEffect } from "preact/hooks";
 
 import { ListItem } from "../../lib/components/list-item";
@@ -43,22 +43,10 @@ export const ContactList: FunctionComponent<ContactListProps> = ({
   }, [onFocusChanged, focusIndex]);
 
   return (
-    <Fragment>
-      <div className="contact-list">
-        {contactList.map((item, i) => (
-          <ListItem
-            key={i}
-            primaryText={item.title}
-            focused={i == focusIndex}
-          />
-        ))}
-      </div>
-      <style jsx>{`
-        .contact-list {
-          overflow: scroll;
-          max-height: 100%;
-        }
-      `}</style>
-    </Fragment>
+    <div>
+      {contactList.map((item, i) => (
+        <ListItem key={i} primaryText={item.title} focused={i == focusIndex} />
+      ))}
+    </div>
   );
 };

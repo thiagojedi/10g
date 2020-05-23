@@ -1,6 +1,8 @@
 import { FunctionComponent, h } from "preact";
 import { useEffect } from "preact/hooks";
 
+import style from "./style.module.css";
+
 interface SoftwareKeysProps {
   leftKey?: string;
   rightKey?: string;
@@ -43,39 +45,12 @@ export const SoftwareKeys: FunctionComponent<SoftwareKeysProps> = ({
   }, [onLeftKey, onRightKey, onCenterKey]);
 
   return (
-    <footer id="sftw-keys">
+    <footer id={style.sftwKeys}>
       <div id="left-key">
         {leftKey && <span className="h5">{leftKey}</span>}
       </div>
-      <div id="center-key">{centerKey && <h5>{centerKey}</h5>}</div>
-      <div id="right-key">{rightKey && <h5>{rightKey}</h5>}</div>
-
-      <style jsx>{`
-        #sftw-keys {
-          height: 3rem;
-          padding: 0 0.5rem;
-
-          display: grid;
-          grid-column-gap: 0.5rem;
-          grid-template-columns: 1fr minmax(2.4rem, 7.6rem) 1fr;
-
-          background-color: lightgray;
-          color: black;
-        }
-
-        #sftw-keys > * {
-          align-self: center;
-        }
-
-        #right-key {
-          text-align: right;
-        }
-
-        #center-key {
-          text-align: center;
-          text-transform: uppercase;
-        }
-      `}</style>
+      <div id={style.centerKey}>{centerKey && <h5>{centerKey}</h5>}</div>
+      <div id={style.rightKey}>{rightKey && <h5>{rightKey}</h5>}</div>
     </footer>
   );
 };

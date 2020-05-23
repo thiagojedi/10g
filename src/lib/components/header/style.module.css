@@ -1,0 +1,15 @@
+.pageHeader {
+  width: 100%;
+
+  line-height: 2.8rem;
+
+  background-color: #2ca5e0;
+  outline: none;
+}
+
+.pageTitle {
+  padding: 0 1rem;
+
+  color: #fff;
+  text-align: center;
+}
