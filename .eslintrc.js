@@ -24,15 +24,17 @@ module.exports = {
   rules: {
     "@typescript-eslint/no-explicit-any": "error",
     "no-undef": "off",
-    "no-unused-vars": "off",
+    "no-unused-vars": "error",
     "prefer-const": "error",
     "react/jsx-key": "error",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     "react/prefer-stateless-function": "error",
     "react/self-closing-comp": "error",
   },
   settings: {
     react: {
-      version: "detect",
+      pragma: "h",
     },
   },
 };
