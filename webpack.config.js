@@ -22,4 +22,5 @@ module.exports = {
   devServer: {
     publicPath: "/dist/",
   },
+  devtool: "source-map",
 };

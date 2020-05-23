@@ -4,7 +4,7 @@
     "module": "commonjs",
     "target": "es6",
     "sourceMap": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "jsxFactory": "h",
     "baseUrl": ".",
     "paths": {
@@ -12,7 +12,8 @@
       "react-dom": ["node_modules/preact/compat"]
     },
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "noUnusedLocals": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]
