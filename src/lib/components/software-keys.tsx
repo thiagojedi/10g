@@ -1,16 +1,48 @@
 import { FunctionComponent, h } from "preact";
+import { useEffect } from "preact/hooks";
 
 interface SoftwareKeysProps {
   leftKey?: string;
   rightKey?: string;
   centerKey?: string;
+  onLeftKey?: () => void;
+
+  onCenterKey?: () => void;
+
+  onRightKey?: () => void;
 }
 
 export const SoftwareKeys: FunctionComponent<SoftwareKeysProps> = ({
   centerKey,
   leftKey,
-  rightKey
+  rightKey,
+  onLeftKey,
+  onRightKey,
+  onCenterKey,
 }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "SoftLeft":
+          if (onLeftKey) onLeftKey();
+          break;
+        case "SoftRight":
+          if (onRightKey) onRightKey();
+          break;
+        case "Enter":
+          if (onCenterKey) onCenterKey();
+        default:
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onLeftKey, onRightKey, onCenterKey]);
+
   return (
     <footer id="sftw-keys">
       <div id="left-key">

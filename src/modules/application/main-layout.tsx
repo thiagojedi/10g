@@ -10,7 +10,7 @@ interface MainLayoutProps {
 export const MainLayout: FunctionComponent<MainLayoutProps> = ({
   headerTitle,
   actions = false,
-  children
+  children,
 }) => {
   return (
     <div>
@@ -21,6 +21,8 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
           leftKey={"Left key"}
           centerKey={"Select"}
           rightKey="Right key"
+          onLeftKey={() => console.log("Left!")}
+          onRightKey={() => console.log("Right!")}
         />
       )}
 
@@ -34,7 +36,7 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
 
         main {
           flex-grow: 1;
-          overflow: hidden;
+          overflow: scroll;
         }
       `}</style>
     </div>
