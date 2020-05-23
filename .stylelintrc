@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-rational-order"
+  ],
+  "rules": {
+    "indentation": 2,
+    "property-no-unknown": true,
+    "plugin/rational-order": [
+      true,
+      {
+        "empty-line-between-groups": true
+      }
+    ]
+  }
+}

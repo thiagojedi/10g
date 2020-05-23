@@ -21,6 +21,7 @@
     "@typescript-eslint/parser": "^2.33.0",
     "babel-loader": "^8.1.0",
     "cross-env": "^6.0.3",
+    "css-loader": "^3.5.3",
     "eslint": "^7.0.0",
     "eslint-config-preact": "^1.1.1",
     "eslint-config-prettier": "^6.11.0",
@@ -32,10 +33,15 @@
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.4",
+    "mini-css-extract-plugin": "^0.9.0",
     "prettier": "^2.0.5",
-    "styled-jsx": "^3.3.0",
+    "stylelint": "^13.2.1",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-order": "^4.0.0",
     "ts-jest": "^26.0.0",
     "typescript": "^3.9.3",
+    "typescript-plugin-css-modules": "^2.3.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
@@ -56,6 +62,10 @@
       "prettier --write"
     ],
     "*.{md,js,json}": [
+      "prettier --write"
+    ],
+    "src/**/*.css": [
+      "stylelint --fix",
       "prettier --write"
     ]
   },
