@@ -10,9 +10,11 @@ module.exports = {
   extends: [
     // 'plugin:@typescript-eslint/recommended',  // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     "prettier",
+
     "plugin:react-hooks/recommended",
     "plugin:testing-library/react",
     "plugin:testing-library/recommended",
+    "preact",
   ],
   parserOptions: {
     sourceType: "module", // Allows for the use of imports
@@ -23,14 +25,9 @@ module.exports = {
   },
   rules: {
     "@typescript-eslint/no-explicit-any": "error",
-    "no-undef": "off",
-    "no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": "error",
     "prefer-const": "error",
     "react/jsx-key": "error",
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "react/prefer-stateless-function": "error",
-    "react/self-closing-comp": "error",
   },
   settings: {
     react: {
