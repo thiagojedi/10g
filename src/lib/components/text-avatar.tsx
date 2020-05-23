@@ -1,12 +1,16 @@
-import {FunctionComponent, h} from "preact";
-import {getInitials} from "../helpers/text";
+import { FunctionComponent, h } from "preact";
+import { getInitials } from "../helpers/text";
 
-export const TextAvatar: FunctionComponent = () => {
-    const initials = getInitials("Mr Anderson");
-    return (
-        <div className="textAvatar">
-            <span>{initials}</span>
-            <style jsx>{`
+type TextAvatarProps = {
+  text: string;
+};
+
+export const TextAvatar: FunctionComponent<TextAvatarProps> = ({ text }) => {
+  const initials = getInitials(text);
+  return (
+    <div className="text-avatar">
+      <span>{initials}</span>
+      <style jsx>{`
         .text-avatar {
           margin: auto;
           width: 3.6rem;
@@ -24,6 +28,6 @@ export const TextAvatar: FunctionComponent = () => {
           text-transform: uppercase;
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 };
