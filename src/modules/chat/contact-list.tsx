@@ -44,9 +44,21 @@ export const ContactList: FunctionComponent<ContactListProps> = ({
 
   return (
     <Fragment>
-      {contactList.map((item, i) => (
-        <ListItem key={i} primaryText={item.title} focused={i === focusIndex} />
-      ))}
+      <div className="contact-list">
+        {contactList.map((item, i) => (
+          <ListItem
+            key={i}
+            primaryText={item.title}
+            focused={i == focusIndex}
+          />
+        ))}
+      </div>
+      <style jsx>{`
+        .contact-list {
+          overflow: scroll;
+          max-height: 100%;
+        }
+      `}</style>
     </Fragment>
   );
 };

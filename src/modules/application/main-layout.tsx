@@ -36,7 +36,7 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
 
         main {
           flex-grow: 1;
-          overflow: scroll;
+          overflow: hidden;
         }
       `}</style>
     </div>
