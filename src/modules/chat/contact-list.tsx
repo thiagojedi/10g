@@ -2,12 +2,28 @@ import { h, FunctionComponent } from "preact";
 import { useState, useEffect } from "preact/hooks";
 
 import { ListItem } from "../../lib/components/list-item";
+import { useChat } from "../application/hooks";
 
 type ContactListProps = {
-  contactList: Array<{
-    title: string;
-  }>;
+  contactList: number[];
   onFocusChanged?: (index: number) => void;
+};
+
+const ContactListItem: FunctionComponent<{
+  chatId: number;
+  focused: boolean;
+}> = ({ chatId, focused = false }) => {
+  const chat = useChat(chatId);
+  if (chat === null) return null;
+
+  const { title, message } = chat;
+  return (
+    <ListItem
+      primaryText={title}
+      tertiaryText={message?.slice(0, 12)}
+      focused={focused}
+    />
+  );
 };
 
 export const ContactList: FunctionComponent<ContactListProps> = ({
@@ -45,7 +61,7 @@ export const ContactList: FunctionComponent<ContactListProps> = ({
   return (
     <div>
       {contactList.map((item, i) => (
-        <ListItem key={i} primaryText={item.title} focused={i == focusIndex} />
+        <ContactListItem key={i} chatId={item} focused={i == focusIndex} />
       ))}
     </div>
   );

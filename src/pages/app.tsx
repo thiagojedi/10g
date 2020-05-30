@@ -1,10 +1,19 @@
-import { h } from "preact";
+import { FunctionComponent, h } from "preact";
 import MainPage from "./main-page";
+import { useLoggedState } from "../modules/application/hooks";
 
-export const App = () => {
+export const App: FunctionComponent = () => {
   // TODO Add global state provider
   // TODO Add routing
   // TODO Add @airgram/web connector
 
-  return <MainPage />;
+  const logged = useLoggedState();
+
+  if (logged) return <MainPage />;
+
+  return (
+    <div>
+      <h1>Proceed with log in</h1>
+    </div>
+  );
 };

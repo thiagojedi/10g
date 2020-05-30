@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const WorkerPlugin = require("worker-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV || "development",
@@ -8,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [new MiniCssExtractPlugin(), new WorkerPlugin()],
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"],
     alias: {
