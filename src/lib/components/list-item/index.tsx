@@ -34,15 +34,17 @@ export const ListItem: FunctionComponent<ListItemProps> = ({
         )}
       </div>
       <div className={style.infoWrapper}>
-        <p className="pri">{primaryText}</p>
-        {secondaryText && <p className="sec">{secondaryText}</p>}
-        {tertiaryText && <p className={style.thi}>{tertiaryText}</p>}
+        <p className={["pri", style.pri].join(" ")}>{primaryText}</p>
+        {secondaryText && (
+          <p className={["sec", style.sec].join(" ")}>{secondaryText}</p>
+        )}
+        {tertiaryText && (
+          <p className={["thi", style.thi].join(" ")}>{tertiaryText}</p>
+        )}
       </div>
       <div className="arrow-wrapper">
         <span className="kai-icon-arrow" />
       </div>
-
-      <style jsx>{``}</style>
     </a>
   );
 };
