@@ -18,11 +18,7 @@ const ContactListItem: FunctionComponent<{
 
   const { title, message } = chat;
   return (
-    <ListItem
-      primaryText={title}
-      tertiaryText={message?.slice(0, 12)}
-      focused={focused}
-    />
+    <ListItem primaryText={title} tertiaryText={message} focused={focused} />
   );
 };
 
@@ -61,7 +57,7 @@ export const ContactList: FunctionComponent<ContactListProps> = ({
   return (
     <div>
       {contactList.map((item, i) => (
-        <ContactListItem key={i} chatId={item} focused={i == focusIndex} />
+        <ContactListItem key={item} chatId={item} focused={i == focusIndex} />
       ))}
     </div>
   );

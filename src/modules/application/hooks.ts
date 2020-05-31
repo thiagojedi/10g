@@ -1,6 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { useAirgram } from "./airgram-context";
-import { Chat } from "@airgram/web";
+import { MessageContentUnion } from "@airgram/web";
+import { insertAtIndex, sortNumberString } from "../../lib/helpers/collections";
 
 export const useLoggedState = () => {
   const [logged, setLogged] = useState(false);
@@ -38,64 +39,162 @@ export const useLoggedState = () => {
 export const useChat = (chatId: number) => {
   const airgram = useAirgram();
 
-  const [item, setItem] = useState<Chat | null>(null);
+  const savedItem = localStorage.getItem(`chat:${chatId}`);
+  const [item, setItem] = useState<{ title: string; message: string } | null>(
+    !savedItem ? null : JSON.parse(savedItem),
+  );
   useEffect(() => {
-    airgram.api.getChat({ chatId }).then(({ response }) => {
-      if (response._ === "error") {
-        console.error(response.message);
-        return;
-      }
-      setItem(response);
-    });
-  }, []);
+    localStorage.setItem(`chat:${chatId}`, JSON.stringify(item));
+  }, [chatId, item]);
 
   useEffect(() => {
+    const getMessageFromContent = (content?: MessageContentUnion): string => {
+      let message: string;
+      switch (content?._) {
+        case "messageText":
+          message = content.text.text;
+          break;
+        default:
+          message = content?._ ?? "";
+      }
+      return message;
+    };
+
+    let canceled = false;
+    if (item === null)
+      airgram.api.getChat({ chatId }).then(({ response }) => {
+        if (canceled) return;
+        if (response._ === "chat") {
+          const { title, lastMessage } = response;
+
+          setItem({
+            title,
+            message: getMessageFromContent(lastMessage?.content),
+          });
+        }
+      });
+
     airgram.on("updateChatLastMessage", ({ update }, next) => {
+      if (canceled) return;
       if (update.chatId === chatId)
-        setItem((item) => item && { ...item, lastMessage: update.lastMessage });
+        setItem(
+          (item) =>
+            item && {
+              ...item,
+              message: getMessageFromContent(update.lastMessage?.content),
+            },
+        );
 
       return next();
     });
-  }, [chatId]);
+    return () => {
+      canceled = true;
+    };
+  }, [airgram, chatId, item]);
 
-  if (item === null) return null;
-
-  const { title, lastMessage } = item;
-
-  let message = "";
-  const content = lastMessage?.content;
-  switch (content?._) {
-    case "messageText":
-      message = content.text.text;
-      break;
-  }
-
-  return { title, message };
+  return item;
 };
 
 export const useChatList = () => {
-  const [chats, setChats] = useState(new Map<number, number>([]));
-
   const airgram = useAirgram();
+
+  const savedPinned = localStorage.getItem("pinned");
+  const inicialPinnedMap = new Map<number, string>(
+    savedPinned ? JSON.parse(savedPinned) : [],
+  );
+  const [pinned, setPinned] = useState(inicialPinnedMap);
   useEffect(() => {
-    airgram.api
-      .getChats({
-        offsetOrder: "9223372036854775807",
-        limit: 30,
-      })
-      .then(({ response }) => {
-        if (response._ === "chats")
-          setChats(new Map(response.chatIds.entries()));
+    localStorage.setItem("pinned", JSON.stringify([...pinned.entries()]));
+  }, [pinned]);
+
+  const savedChats = localStorage.getItem("chatIds");
+  const [chats, setChats] = useState<number[]>(
+    savedChats ? JSON.parse(savedChats) : [],
+  );
+  useEffect(() => {
+    localStorage.setItem("chatIds", JSON.stringify(chats));
+  }, [chats]);
+
+  useEffect(() => {
+    const handleUpdate = (
+      id: number,
+      order: string,
+      pinned: boolean,
+      next: Function,
+    ) => {
+      setChats((chats) => {
+        const filteredChats = chats.filter((i) => i !== id);
+
+        return pinned
+          ? filteredChats
+          : insertAtIndex(filteredChats, parseInt(order, 10), id);
       });
 
-    airgram.on("updateChatOrder", ({ update }, next) => {
-      setChats((chats) => {
-        chats.set(parseInt(update.order, 10), update.chatId);
-        return new Map([...chats.entries()].sort((a, b) => a[0] - b[0]));
+      setPinned((chats) => {
+        if (!pinned) {
+          chats.delete(id);
+          return new Map(chats);
+        }
+
+        if (pinned && !chats.has(id)) {
+          chats.set(id, order);
+          return new Map(chats);
+        }
+
+        return chats;
       });
+
+      return next();
+    };
+
+    airgram.on("updateChatOrder", ({ update: { chatId, order } }, next) => {
+      console.log("chat order");
+      setChats((chats) => {
+        if (!chats.includes(chatId)) return chats;
+
+        const filteredChats = chats.filter((i) => i !== chatId);
+        return insertAtIndex(filteredChats, parseInt(order, 10), chatId);
+      });
+
+      setPinned((chats) => {
+        if (chats.has(chatId)) console.log(`Pinned chat tinha ${chatId}`);
+        else console.log(`Pinned chat NÃO tinha ${chatId}`);
+        if (!chats.has(chatId)) return chats;
+
+        return new Map(chats.set(chatId, order));
+      });
+
       return next();
     });
-  }, []);
 
-  return Array.from(chats.values());
+    airgram.on(
+      "updateNewChat",
+      (
+        {
+          update: {
+            chat: { id, order, isPinned },
+          },
+        },
+        next,
+      ) => handleUpdate(id, order, isPinned, next),
+    );
+    airgram.on(
+      "updateChatIsPinned",
+      ({ update: { chatId, order, isPinned } }, next) =>
+        handleUpdate(chatId, order, isPinned, next),
+    );
+
+    airgram.on("updateChatLastMessage", ({ update: { chatId, order } }, next) =>
+      handleUpdate(chatId, order, false, next),
+    );
+  }, [airgram]);
+
+  const pinnedIds = orderedIds(pinned).reverse();
+  return [...pinnedIds, ...chats];
 };
+
+function orderedIds(chats: Map<number, string>) {
+  return [...chats.entries()]
+    .sort((a, b) => sortNumberString(a[1], b[1]))
+    .map(([v]) => v);
+}

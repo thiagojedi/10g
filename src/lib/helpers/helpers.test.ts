@@ -1,4 +1,5 @@
 import { getInitials, groupMessagesByUsername } from "./text";
+import { insertAtIndex } from "./collections";
 
 test("getInitials", () => {
   expect(getInitials()).toBe("?");
@@ -92,4 +93,15 @@ test("groupMessagesByUsername", () => {
       content: ["message5", "message6"],
     },
   ]);
+});
+
+test("insertAtIndex", () => {
+  expect(insertAtIndex([], 0, 0)).toStrictEqual([0]);
+  expect(insertAtIndex([], 1, 0)).toStrictEqual([0]);
+
+  expect(insertAtIndex([0, 1], 1, 2)).toStrictEqual([0, 2, 1]);
+
+  expect(insertAtIndex([0, 1], 243, 2)).toStrictEqual([0, 1, 2]);
+
+  expect(insertAtIndex([0, 1], 0, 2)).toStrictEqual([2, 0, 1]);
 });
