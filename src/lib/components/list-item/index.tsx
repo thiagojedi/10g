@@ -39,7 +39,7 @@ export const ListItem: FunctionComponent<ListItemProps> = ({
           <p className={["sec", style.sec].join(" ")}>{secondaryText}</p>
         )}
         {tertiaryText && (
-          <p className={["thi", style.thi].join(" ")}>{tertiaryText}</p>
+          <p className={["tri", style.tri].join(" ")}>{tertiaryText}</p>
         )}
       </div>
       <div className="arrow-wrapper">

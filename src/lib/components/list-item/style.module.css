@@ -1,8 +1,10 @@
 .listItem {
   display: grid;
-  grid-template-columns: 1fr 170px 1fr;
+  grid-gap: 1rem;
+
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  max-width: 1vw;
+  max-width: 100vw;
   padding: 1rem;
 
   color: inherit;
@@ -13,21 +15,27 @@
   background-color: #eee;
 }
 
+.listItem > * {
+  display: inline-block;
+
+  vertical-align: middle;
+}
+
 .pri,
 .sec,
-.thi {
+.tri {
   overflow: hidden;
 
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.thi {
+.tri {
   color: #444;
 }
 
 .infoWrapper {
-  flex-grow: 1;
+  width: 100%;
 }
 
 .imageWrapper {
