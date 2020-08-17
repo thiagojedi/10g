@@ -1,8 +1,7 @@
 .listItem {
   display: grid;
-  grid-gap: 1rem;
 
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 30ch auto;
   align-items: center;
   max-width: 100vw;
   padding: 1rem;
