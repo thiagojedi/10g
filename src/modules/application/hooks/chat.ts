@@ -1,6 +1,10 @@
 import { useAirgram } from "../airgram-context";
-import { useEffect, useState } from "preact/hooks";
-import { MessageContentUnion } from "@airgram/web";
+import { useCallback, useEffect, useState } from "preact/hooks";
+import {
+  MessageContentUnion,
+  UpdateContext,
+  UpdateChatLastMessage,
+} from "@airgram/web";
 import { sortNumberString } from "../../../lib/helpers/collections";
 
 interface ChatState {
@@ -20,23 +24,8 @@ export const useChat = (chatId: number) => {
     localStorage.setItem(`chat:${chatId}`, JSON.stringify(item));
   }, [chatId, item]);
 
-  useEffect(() => {
-    let canceled = false;
-    if (item === null)
-      airgram.api.getChat({ chatId }).then(({ response }) => {
-        if (canceled) return;
-        if (response._ === "chat") {
-          const { title, lastMessage } = response;
-
-          setItem({
-            title,
-            message: getMessageFromContent(lastMessage?.content),
-          });
-        }
-      });
-
-    airgram.on("updateChatLastMessage", ({ update }, next) => {
-      if (canceled) return;
+  const callback = useCallback(
+    ({ update }: UpdateContext<UpdateChatLastMessage>, next: () => void) => {
       if (update.chatId === chatId)
         setItem(
           (item) =>
@@ -47,10 +36,26 @@ export const useChat = (chatId: number) => {
         );
 
       return next();
-    });
-    return () => {
-      canceled = true;
-    };
+    },
+    [chatId],
+  );
+
+  useEffect(() => {
+    airgram.on("updateChatLastMessage", callback);
+  }, []);
+
+  useEffect(() => {
+    if (item === null)
+      airgram.api.getChat({ chatId }).then(({ response }) => {
+        if (response._ === "chat") {
+          const { title, lastMessage } = response;
+
+          setItem({
+            title,
+            message: getMessageFromContent(lastMessage?.content),
+          });
+        }
+      });
   }, [airgram, chatId, item]);
 
   return item;
@@ -66,6 +71,21 @@ export const useChatList = () => {
   useEffect(() => {
     localStorage.setItem("chats", JSON.stringify([...chats.entries()]));
   }, [chats]);
+
+  useEffect(() => {
+    if (chats.size === 0) {
+      airgram.api
+        .getChats({
+          limit: 100,
+          offsetOrder: "9223372036854775807",
+        })
+        .then((value) => {
+          if (value.response._ === "error") return;
+
+          console.log(value.response.chatIds);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     const handleUpdate = (id: number, order: string, next: Function) => {
