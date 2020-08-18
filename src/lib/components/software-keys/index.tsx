@@ -26,9 +26,11 @@ export const SoftwareKeys: FunctionComponent<SoftwareKeysProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "SoftLeft":
+        case "j":
           if (onLeftKey) onLeftKey();
           break;
         case "SoftRight":
+        case "k":
           if (onRightKey) onRightKey();
           break;
         case "Enter":
